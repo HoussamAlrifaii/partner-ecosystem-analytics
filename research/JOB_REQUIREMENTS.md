@@ -26,6 +26,10 @@ The clearest priorities for this portfolio are SQL analysis, trustworthy data pr
 - [Microsoft CSV parsing reference](https://learn.microsoft.com/en-us/powerquery-m/csv-document): implementation reference for our typed Power Query imports.
 - [Power BI Publish to web](https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-publish-to-web): public exposure and tenant/license considerations must be checked at deployment.
 
+- [Python SQLite connection contexts](https://docs.python.org/3.12/library/sqlite3.html#how-to-use-the-connection-context-manager): transaction management and connection closure are separate concerns.
+- [Power BI refresh](https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-data): source connectivity and credentials/gateways require an actual refresh design.
+- [Power BI Desktop requirements](https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-get-the-desktop): check supported Windows authoring requirements before phase 03.
+
 ## Existing resources decision
 
 The uploaded AI tool list contains website builders, writing assistants, media tools, meeting transcription and PDF chat products. None is necessary to prove Python, SQL, Power BI, data quality or business judgment here. This is a project-fit decision based on the supplied descriptions, not a current audit of every vendor's claims or pricing. A later walkthrough recorder or writing aid may help presentation, but must not replace the native Power BI work. The item labeled 'DoNotPlay — AI Lawyer' is ambiguous and is not adopted. No subscription is required by this phase.

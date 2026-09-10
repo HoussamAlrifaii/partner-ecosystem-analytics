@@ -1,0 +1,14 @@
+{
+  "name": "Partner Ecosystem",
+  "dataColors": [
+    "#176B87",
+    "#E09035",
+    "#516F40",
+    "#79609B",
+    "#A84646",
+    "#3C6775"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#182D38",
+  "tableAccent": "#176B87"
+}

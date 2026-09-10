@@ -1,0 +1,29 @@
+{
+  "raw_rows": 1350,
+  "exact_duplicates_removed": 30,
+  "superseded_revisions": 120,
+  "quarantined_latest": 5,
+  "accepted_latest": 1195,
+  "reconciled": true,
+  "synthetic": true,
+  "as_of_date": "2026-08-31",
+  "reason_counts": {
+    "close_date_outside_lifecycle": 1,
+    "invalid_amount_usd": 1,
+    "invalid_created_date": 1,
+    "open_stage_has_close_date": 1,
+    "unknown_partner": 1
+  },
+  "sql_kpis": {
+    "accepted_opportunities": 1195,
+    "net_bookings_usd": 25920062.28,
+    "booked_gross_profit_usd": 3789259.6,
+    "booked_margin_rate": 0.14619021972504304,
+    "won_count": 437,
+    "closed_count": 727,
+    "closed_win_rate": 0.6011004126547456,
+    "open_pipeline_usd": 29478195.15,
+    "stale_pipeline_usd": 18297698.41,
+    "stale_pipeline_share": 0.6207197664881461
+  }
+}

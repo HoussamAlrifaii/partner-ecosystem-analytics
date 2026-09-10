@@ -14,7 +14,7 @@ Each delivered phase contains code, a separate explanation, a README with 'What 
 | Phase | Scope | Engineering status | Houssam's checkpoint / exit gate |
 |---|---|---|---|
 | 00 | Research and business/metric contracts | Prepared | Explain the decision, grain, denominator and synthetic-data limits |
-| 01 | Reproducible CRM cleanup, SQL warehouse, quality checks, Power BI starter queries | In progress | Run locally; change one validation rule; reconcile known example by hand |
+| 01 | Reproducible CRM cleanup, SQL warehouse, quality checks, Power BI starter queries | Implemented; 13 tests passed | Run locally; change one validation rule; reconcile known example by hand |
 | 02 | Deeper SQL analysis and analyst recommendation memo | Planned | Quantify drivers with denominators and uncertainty; distinguish association from causation |
 | 03 | Native Power BI semantic model and dashboard | Starter M/DAX supplied; not executed in Power BI | Create/save .pbix (or validated .pbip), check relationships, DAX/filter behavior, drill-through, performance and accessibility |
 | 04 | Deployment and refresh | Docker configuration supplied; not executed | Run container; publish report; verify viewer access and refresh; capture actual evidence |
