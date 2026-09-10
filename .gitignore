@@ -1,0 +1,18 @@
+# 📖 READ ONLY — keep generated data, environments and secrets out of source control.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+outputs/
+data/raw/
+*.sqlite
+*.sqlite-journal
+*.pbix
+*.pbit
+*.zip
+*.bundle

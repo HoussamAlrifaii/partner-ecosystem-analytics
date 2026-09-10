@@ -1,0 +1,2 @@
+# 📖 READ ONLY — version used to validate this release; not a claim of latest version.
+pandas==2.2.3
