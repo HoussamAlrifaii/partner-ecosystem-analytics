@@ -59,25 +59,17 @@ The source CRM export contains duplicate rows, multiple revisions of the same op
 
 Provides a high-level view of bookings, profitability, conversion performance, open pipeline, stale pipeline risk, monthly trends, and vendor contribution.
 
-![Executive Overview](assets/dashboard/executive-overview.png)
-
 ### 2. Partner Performance
 
 Compares partner contribution and profitability using net bookings, gross profit, margin rate, win rate, partner ranking, and a revenue-versus-margin scatter analysis.
-
-![Partner Performance](assets/dashboard/partner-performance.png)
 
 ### 3. Pipeline Health
 
 Monitors open pipeline, stale pipeline value, stale share, vendor exposure, healthy-versus-stale composition, and partner-level pipeline risk.
 
-![Pipeline Health](assets/dashboard/pipeline-health.png)
-
 ### 4. Opportunity Analysis
 
 Analyzes opportunity outcomes and active sales stages using KPI cards, an open-opportunity funnel, a decomposition tree, and detailed opportunity records.
-
-![Opportunity Analysis](assets/dashboard/opportunity-analysis.png)
 
 ## End-to-End Workflow
 
