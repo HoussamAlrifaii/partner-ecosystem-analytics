@@ -1,92 +1,234 @@
 # Partner Ecosystem Performance Analytics
 
-A Data Analyst portfolio project by Houssam Alrifaii, built in guided phases with AI assistance. **Foundation release; Power BI report and deployment are still in progress.**
+An end-to-end data analytics project that transforms synthetic CRM opportunity data into validated business metrics, a relational analytics model, and a four-page Power BI dashboard.
 
-A fictional technology distributor needs to understand which vendors drive bookings, where partner conversion deserves review, and which open opportunities have stalled. This project connects Python/pandas cleanup, a SQL star schema and a native Power BI build. All data is synthetic. The project demonstrates implementation and analytical judgment; it makes no claim of impact at Houssam's employer.
+The solution combines **Python**, **SQL**, **SQLite**, **DAX**, **Power Query**, and **Power BI** to analyze partner contribution, profitability, pipeline health, and opportunity outcomes.
 
-## Evidence available today
+> All organizations, partners, vendors, opportunities, and financial values in this project are synthetic.
 
-- Reproducible generator: 1,350 CRM export rows, including revisions and deliberate defects.
-- Validated pipeline: 30 exact duplicates removed, 120 superseded revisions, 5 quarantined latest records, 1,195 accepted opportunities.
-- SQL: constrained relational tables, joins, conditional aggregation, CTEs, window functions, safe ratios, zero-month handling and partner review outputs.
-- Thirteen passing tests against independently specified examples and failure cases. See docs/VALIDATION.md.
-- Commented M/DAX starter files and a detailed Power BI build guide. Native execution remains pending.
-- Local phase commits; remote repository/push and GitHub Actions execution remain pending.
+## Dashboard Preview
 
-## Start here
+![Partner Ecosystem Performance Executive Overview](assets/dashboard/executive-overview.png)
 
-Open START_HERE.md, then docs/phase01/EXPLANATION.md. The downloadable guide expands the walkthrough. Read the first three explanation sections before running the supplied implementation.
+[View the complete four-page Power BI dashboard as a PDF](assets/Partner_Sales_Performance_Dashboard.pdf)
 
-Windows PowerShell, from this project folder, with Python 3.12 installed:
+## Business Problem
 
-~~~powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m partner_analytics.generate
-.\.venv\Scripts\python.exe -m partner_analytics.pipeline
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-~~~
+A fictional technology distributor needs a reliable way to answer questions such as:
 
-macOS/Linux, with Python 3.11 or 3.12 installed:
+- Which vendors and partners generate the most bookings?
+- How profitable are those bookings?
+- Which partners combine strong revenue contribution with healthy margins?
+- How much open pipeline is currently at risk?
+- Which opportunities have remained inactive for more than 60 days?
+- How effectively are opportunities progressing through the sales stages?
+- Which regions, partner tiers, vendors, and partners drive opportunity value?
 
-~~~bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m partner_analytics.generate
-.venv/bin/python -m partner_analytics.pipeline
-.venv/bin/python -m unittest discover -s tests -v
-~~~
+The source CRM export contains duplicate rows, multiple revisions of the same opportunity, malformed records, and inconsistent values. The project therefore validates and reconciles the data before presenting any business metrics.
 
-Power BI Desktop authoring requires a supported Windows environment; the Python/SQL phase can run on macOS/Linux. An operating-system-specific Power BI installation walkthrough is deferred until Houssam's machine is confirmed. The CI/Docker configuration targets Python 3.12; see the recorded local version in docs/VALIDATION.md.
+## Key Results
 
-Copy the version-directory path printed by the pipeline into the Power Query DataFolder parameter. It contains warehouse.sqlite, four model CSVs, three SQL analysis CSVs, quarantine.csv, quality_report.json and manifest.json. CURRENT.txt points to the last successfully published local version. Re-running identical inputs/code/environment reuses the same version. Do not edit version files; regenerate from source.
+| Metric | Result |
+|---|---:|
+| Accepted opportunities | 1,195 |
+| Net bookings | $25.92M |
+| Booked gross profit | $3.79M |
+| Booked margin rate | 14.62% |
+| Won opportunities | 437 |
+| Lost opportunities | 290 |
+| Open opportunities | 468 |
+| Closed win rate | 60.11% |
+| Open pipeline | $29.48M |
+| Stale pipeline | $18.30M |
+| Stale pipeline share | 62.07% |
+| Average opportunity value | $61.78K |
 
-## How everything connects
+### Main Analytical Findings
 
-Python reads and validates the CRM exports. SQLite persists the dimensions and opportunity fact and executes the SQL analysis. The pipeline exports those four model tables to CSV. Power Query loads and types them; Power BI relationships and DAX provide interactive measures. SQL summary exports are reconciliation evidence, not extra facts to join into the model. Power BI Service sharing and refresh are completed in the deployment phase.
+- The business generated approximately **$25.92M in net bookings** and **$3.79M in booked gross profit**.
+- The overall booked margin rate was **14.62%**.
+- The closed win rate was **60.11%**, based on won and lost opportunities.
+- Approximately **$18.30M of the $29.48M open pipeline** was stale, meaning it had not been updated within the defined 60-day threshold.
+- The **62.07% stale-pipeline share** represents the most significant sales-risk signal in the report.
+- Open opportunities were distributed across **Qualified, Proposal, and Negotiation** stages, allowing the sales team to monitor active pipeline progression.
+- Partner profitability cannot be judged from sales value alone; the partner analysis compares bookings, gross profit, margin rate, and win rate together.
 
-## Repository map
+## Dashboard Pages
+
+### 1. Executive Overview
+
+Provides a high-level view of bookings, profitability, conversion performance, open pipeline, stale pipeline risk, monthly trends, and vendor contribution.
+
+![Executive Overview](assets/dashboard/executive-overview.png)
+
+### 2. Partner Performance
+
+Compares partner contribution and profitability using net bookings, gross profit, margin rate, win rate, partner ranking, and a revenue-versus-margin scatter analysis.
+
+![Partner Performance](assets/dashboard/partner-performance.png)
+
+### 3. Pipeline Health
+
+Monitors open pipeline, stale pipeline value, stale share, vendor exposure, healthy-versus-stale composition, and partner-level pipeline risk.
+
+![Pipeline Health](assets/dashboard/pipeline-health.png)
+
+### 4. Opportunity Analysis
+
+Analyzes opportunity outcomes and active sales stages using KPI cards, an open-opportunity funnel, a decomposition tree, and detailed opportunity records.
+
+![Opportunity Analysis](assets/dashboard/opportunity-analysis.png)
+
+## End-to-End Workflow
+
+1. Generate a controlled synthetic CRM dataset with realistic revisions and deliberate data-quality defects.
+2. Validate required columns, data types, business rules, monetary values, dates, and dimension keys.
+3. Remove exact duplicate exports.
+4. Identify the latest valid revision for each opportunity.
+5. Quarantine invalid latest records instead of silently dropping them.
+6. Load accepted records into a SQLite star schema.
+7. Calculate auditable business metrics using SQL.
+8. Export clean dimension and fact tables for Power BI.
+9. Build relationships, measures, slicers, KPIs, and interactive analytical pages in Power BI.
+10. Reconcile dashboard results with the validated Python and SQL outputs.
+
+## Data-Quality Results
+
+The pipeline processed **1,350 raw CRM rows**:
+
+| Validation step | Rows |
+|---|---:|
+| Raw rows received | 1,350 |
+| Exact duplicates removed | 30 |
+| Superseded revisions removed | 120 |
+| Invalid latest records quarantined | 5 |
+| Accepted latest opportunities | 1,195 |
+
+The pipeline preserves rejected records in a quarantine output so that data-quality problems remain visible and auditable.
+
+## Data Model
+
+The analytical model uses a star-schema design:
+
+- `fact_opportunity` — one accepted latest record per opportunity
+- `dim_date` — calendar attributes used for time analysis
+- `dim_partner` — partner name, tier, and region
+- `dim_vendor` — vendor name and category
+
+This design keeps opportunity values at a consistent grain and prevents duplicate totals when dimensions are joined to the fact table.
+
+## Technology Stack
+
+| Area | Technology |
+|---|---|
+| Data generation and validation | Python, pandas |
+| Data transformation | Python, SQL |
+| Analytical database | SQLite |
+| Data modeling | Star schema |
+| Business calculations | SQL and DAX |
+| Data preparation for reporting | Power Query |
+| Visualization | Power BI Desktop and Power BI Service |
+| Automated validation | Python `unittest` |
+| Version control | Git and GitHub |
+| Reproducibility | Requirements file, Dockerfile and GitHub Actions |
+
+## Repository Structure
 
 | Location | Purpose |
 |---|---|
-| partner_analytics/generate.py | Synthetic CRM and reference exports |
-| partner_analytics/quality.py | Schema, revision and row-quality contracts |
-| partner_analytics/pipeline.py | Warehouse, SQL outputs, audit and immutable versions |
-| sql/01_schema.sql, sql/02_metrics.sql | Relational model and business analysis |
-| tests/test_pipeline.py | Thirteen meaningful tests |
-| powerbi/ | Editable M, DAX and theme starters |
-| docs/phase01/ | Guided explanation and interview preparation |
-| docs/METRIC_CONTRACTS.md | Definitions, grain, exclusions and dates |
-| research/JOB_REQUIREMENTS.md | Seven sourced job descriptions and scope decisions |
-| PROJECT_RUNBOOK.md | Phase status and completion gates |
+| `partner_analytics/` | Synthetic-data generation, validation and pipeline orchestration |
+| `sql/` | Database schema and analytical SQL queries |
+| `powerbi/` | Power Query, DAX and Power BI supporting files |
+| `tests/` | Automated pipeline and business-rule tests |
+| `docs/` | Metric definitions, validation evidence and implementation documentation |
+| `assets/dashboard/` | Power BI dashboard screenshots |
+| `assets/Partner_Sales_Performance_Dashboard.pdf` | Complete dashboard export |
+| `examples/` | Example inputs and supporting samples |
+| `research/` | Project requirements and analytical scope |
+| `.github/` | GitHub Actions workflow configuration |
+| `requirements.txt` | Python dependencies |
+| `Dockerfile` | Reproducible batch-pipeline environment |
 
-## Deployment status
+## Running the Project
 
-Dockerfile and CI workflow are scaffolds, not execution evidence. In phase 04 run:
+### Windows PowerShell
 
-~~~bash
-docker build -t partner-analytics:phase01 .
-docker run --rm -v partner-analytics-output:/app/outputs partner-analytics:phase01
-~~~
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m partner_analytics.generate
+python -m partner_analytics.pipeline
+python -m unittest discover -s tests -v
+```
 
-The named Docker volume retains the generated warehouse; a host bind mount can be used when a local Power BI process needs the CSVs. The container runs a batch job, not an HTTP dashboard. Power BI publication is a separate deliverable. Do not call this project fully deployed until the container and native report have been executed and verified.
+### macOS or Linux
 
-## Limits
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m partner_analytics.generate
+python -m partner_analytics.pipeline
+python -m unittest discover -s tests -v
+```
 
-One fixed current snapshot; no historical pipeline, sales targets, forecasts, causal claims, real partner records or multi-currency conversions. SQLite/file exports suit this learning-sized batch; concurrent writers and enterprise refresh are outside phase 01. Negative gross margin is possible and is not removed as an error. All money is synthetic net deal value, not accounting revenue. Missing/invalid latest opportunities are visible in quarantine and can bias reported KPIs.
+The pipeline produces versioned outputs including:
 
-## What recruiters will actually ask
+- `warehouse.sqlite`
+- `dim_date.csv`
+- `dim_partner.csv`
+- `dim_vendor.csv`
+- `fact_opportunity.csv`
+- `v_kpis.csv`
+- `v_partner_review.csv`
+- `v_vendor_month.csv`
+- `quarantine.csv`
+- `quality_report.json`
+- `manifest.json`
 
-**What business decision does this support?** It gives a channel manager a vendor/partner breakdown of closed bookings and conversion plus a current stale-opportunity review queue. A flag initiates investigation; it does not prove the reason for a lost deal.
+## Validation
 
-**How did you stop duplicate totals?** I separate exact duplicate exports from older revisions, select one unambiguous latest record per opportunity, enforce unique dimension keys and verify the joined count equals the fact count.
+The automated test suite covers:
 
-**Why Python and SQL together?** Python handles reproducible file ingestion, precise validation, quarantine and orchestration. SQL expresses auditable relational transformations and business aggregations. Power BI provides interactive exploration over the same clean grain.
+- Exact duplicate removal
+- Opportunity revision selection
+- Invalid latest-record quarantine
+- Referential integrity
+- Monetary-value parsing
+- KPI arithmetic
+- Empty-denominator handling
+- Missing-month behavior
+- Stale-opportunity boundaries
+- Repeatable pipeline execution
 
-**Why not call bookings revenue?** Won deal value is not a schedule of recognized revenue or cash receipts. This source cannot establish either, so the report labels the quantity as bookings.
+See [`docs/VALIDATION.md`](docs/VALIDATION.md) for the validation approach and [`docs/METRIC_CONTRACTS.md`](docs/METRIC_CONTRACTS.md) for metric definitions.
 
-**What did you empirically validate?** Thirteen tests cover known KPI arithmetic, revision conflicts, invalid latest records, referential quality, exact decimal parsing, empty denominators, missing months, stage-age boundaries and repeat runs. DAX and deployment still need their own execution evidence.
+## Metric Notes
 
-**Did this improve sales?** No real business outcome has been measured. This is a synthetic portfolio case. I can demonstrate the workflow and describe the validation design without attributing fictional results to my employer.
+- **Net bookings** represent the value of won opportunities. They are not recognized accounting revenue or collected cash.
+- **Booked gross profit** equals won opportunity value minus the associated cost.
+- **Booked margin rate** equals booked gross profit divided by net bookings.
+- **Closed win rate** equals won opportunities divided by won plus lost opportunities.
+- **Open pipeline** includes opportunities currently in Qualified, Proposal, or Negotiation stages.
+- **Stale pipeline** includes open opportunities that have not been updated within the defined 60-day threshold.
 
-**Did you write everything independently?** The assistant generated the initial implementation with explanations. My learning checkpoints require me to explain the design, modify it and reproduce key logic. I will claim only the parts I can demonstrate and defend.
+## Limitations
+
+- The project uses synthetic data and does not represent a real company.
+- The report analyzes a fixed snapshot rather than a live operational CRM connection.
+- No sales targets, forecasts, currency conversion, or causal analysis are included.
+- Bookings should not be interpreted as recognized revenue.
+- Public interactive Power BI access is not included; dashboard screenshots and the complete PDF are provided in this repository.
+
+## Future Extension
+
+A separate data-science phase can extend this project with:
+
+- Open-opportunity win-probability prediction
+- Feature engineering based on stage, age, region, tier, vendor, and deal value
+- Logistic-regression and tree-based model comparison
+- Model evaluation and explainability
+- An interactive prediction interface
+
+This extension will remain separate from the completed data-analytics solution so that descriptive analytics and predictive modeling can be evaluated independently.
