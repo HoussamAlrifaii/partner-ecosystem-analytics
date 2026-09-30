@@ -1,4 +1,4 @@
-# 📖 READ ONLY — keep generated data, environments and secrets out of source control.
+# keep generated data, environments and secrets out of source control.
 .venv/
 venv/
 __pycache__/

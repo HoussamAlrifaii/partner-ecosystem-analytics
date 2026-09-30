@@ -1,15 +1,68 @@
-# Power BI starter assets — native execution pending
+# Power BI Report Assets
 
-These are editable Power Query (M), DAX and theme files. They are not a PBIX report. Read docs/POWER_BI_BUILD_GUIDE.md. Power BI Desktop must execute and validate them in phase 03. The build has not run in the current Linux workspace.
+This folder contains the Power Query, DAX and supporting assets used to build the Partner Ecosystem Performance Analytics report in Power BI Desktop.
 
-Create DataFolder, then fnReadCsv, then the four table queries, using the exact query names. Import relationships manually; do not load SQL aggregate CSVs into the analytical star. Each DAX measure is created separately. The CSV bridge is deliberate: SQL remains the tested transformation/analysis engine, while Power BI remains the native semantic and visual layer. A direct database connector is not required to demonstrate this end-to-end flow.
+The completed report contains four analytical pages:
 
-## What recruiters will actually ask
+1. Executive Overview
+2. Partner Performance
+3. Pipeline Health
+4. Opportunity Analysis
 
-**Why use a star schema?** Separate dimensions have unique keys and filter a fact at one explicit grain, making totals and filter behavior predictable. I verify joins preserve the opportunity count.
+Dashboard screenshots and the complete four-page PDF are available in the repository’s `assets` folder.
 
-**Why does pipeline ignore the closed-date slicer?** Open deals have no close date and pipeline is measured as of one fixed snapshot. I show the as-of date on its own page and preserve vendor/partner filters.
+## Analytical Model
 
-**How do you know DAX agrees with SQL?** The pipeline exports independent SQL totals. In phase 03 I will check unfiltered totals, vendor filters, a closed month, blank denominators and date-filter behavior. Those native checks are pending; code review alone does not establish agreement.
+The Power BI model loads four analytical tables:
 
-**Have you deployed this report?** Not yet. A native report and verified sharing/refresh evidence are required before claiming deployment.
+- `dim_date`
+- `dim_partner`
+- `dim_vendor`
+- `fact_opportunity`
+
+`DataFolder.pq` defines the generated-data location, while `fnReadCsv.pq` provides reusable CSV-loading and type-conversion logic.
+
+The dimension tables filter `fact_opportunity` through one-to-many relationships using the appropriate business keys.
+
+## Measures
+
+`measures.dax` contains the report’s business measures, including:
+
+- Net bookings
+- Booked gross profit
+- Booked margin rate
+- Closed win rate
+- Open pipeline
+- Stale pipeline
+- Stale pipeline share
+- Opportunity counts and average values
+
+Bookings represent won opportunity value and should not be interpreted as recognized accounting revenue or collected cash.
+
+## Validation
+
+Headline Power BI results were reconciled with the validated Python and SQL pipeline outputs:
+
+| Metric | Validated result |
+|---|---:|
+| Accepted opportunities | 1,195 |
+| Net bookings | $25.92M |
+| Booked gross profit | $3.79M |
+| Booked margin rate | 14.62% |
+| Closed win rate | 60.11% |
+| Open pipeline | $29.48M |
+| Stale pipeline | $18.30M |
+| Stale pipeline share | 62.07% |
+
+The report was built in Power BI Desktop, published to Power BI Service and exported to PDF. Public embedding was unavailable because embed-code creation is disabled by the organization’s tenant administrator. Scheduled refresh and public external access are outside the validated scope of this project.
+
+## Rebuilding the Report
+
+1. Run the Python pipeline to generate the clean model CSV files.
+2. Set the `DataFolder` parameter to the generated version directory.
+3. Create the Power Query parameter, helper function and four model queries using the files in this folder.
+4. Create the star-schema relationships.
+5. Add the measures from `measures.dax`.
+6. Build the report pages and reconcile the headline metrics with the SQL outputs.
+
+See [`../docs/POWER_BI_BUILD_GUIDE.md`](../docs/POWER_BI_BUILD_GUIDE.md) for detailed implementation guidance.

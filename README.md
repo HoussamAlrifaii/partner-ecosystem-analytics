@@ -136,7 +136,6 @@ This design keeps opportunity values at a consistent grain and prevents duplicat
 | `assets/dashboard/` | Power BI dashboard screenshots |
 | `assets/Partner_Sales_Performance_Dashboard.pdf` | Complete dashboard export |
 | `examples/` | Example inputs and supporting samples |
-| `research/` | Project requirements and analytical scope |
 | `.github/` | GitHub Actions workflow configuration |
 | `requirements.txt` | Python dependencies |
 | `Dockerfile` | Reproducible batch-pipeline environment |

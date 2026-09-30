@@ -17,14 +17,14 @@ class DataContractError(ValueError):
 
 
 def iso_date(value):
-    # 🎯 INTERVIEW FOCUS — reject ambiguous locale formats before dates enter SQL.
+    # reject ambiguous locale formats before dates enter SQL.
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
         raise ValueError("Expected YYYY-MM-DD")
     return date.fromisoformat(value)
 
 
 def cents(value):
-    # 🎯 INTERVIEW FOCUS — exact decimal parsing prevents binary-float money drift.
+    # exact decimal parsing prevents binary-float money drift.
     try:
         number = Decimal(value)
         scaled = number * 100
@@ -38,7 +38,7 @@ def cents(value):
 
 
 def read_source(path, required):
-    # 📖 READ ONLY — keep IDs as text and empty values visible for validation.
+    # keep IDs as text and empty values visible for validation.
     frame = pd.read_csv(path, dtype=str, keep_default_na=False)
     if set(frame.columns) != set(required):
         raise DataContractError(f"{path.name}: unexpected columns")
@@ -46,7 +46,7 @@ def read_source(path, required):
 
 
 def validate_dimension(frame, key):
-    # 🎯 INTERVIEW FOCUS — duplicate dimension keys would multiply fact-table joins.
+    # duplicate dimension keys would multiply fact-table joins.
     if frame.empty or frame.eq("").any().any() or frame[key].duplicated().any():
         raise DataContractError(f"Invalid reference table: {key}")
 
@@ -54,7 +54,7 @@ def validate_dimension(frame, key):
 def clean_opportunities(raw, partner_ids, vendor_ids, as_of):
     if raw.empty:
         raise DataContractError("Opportunity export is empty")
-    # 🎯 INTERVIEW FOCUS — identity and revision order must be trustworthy before deduplication.
+    # identity and revision order must be trustworthy before deduplication.
     if raw["opportunity_id"].eq("").any():
         raise DataContractError("Missing opportunity identity")
     for value in raw["updated_date"]:
@@ -108,7 +108,7 @@ def clean_opportunities(raw, partner_ids, vendor_ids, as_of):
             except ValueError:
                 reasons.append(f"invalid_{field}")
         if reasons:
-            # 🎯 INTERVIEW FOCUS — never revive an older valid revision to hide a bad latest record.
+            # never revive an older valid revision to hide a bad latest record.
             rejected.append(dict(row, rejection_reasons="|".join(reasons)))
             continue
         accepted.append({

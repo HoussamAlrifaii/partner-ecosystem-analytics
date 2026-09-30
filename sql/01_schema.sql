@@ -1,4 +1,4 @@
--- 📖 READ ONLY — SQLite is the first-phase engine; no external server is needed.
+-- SQLite is the first-phase engine; no external server is needed.
 PRAGMA foreign_keys = ON;
 CREATE TABLE dim_partner (
     partner_id TEXT PRIMARY KEY NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE dim_date (
     year INTEGER NOT NULL, month_number INTEGER NOT NULL,
     month_start TEXT NOT NULL, month_label TEXT NOT NULL
 );
--- 🎯 INTERVIEW FOCUS — one current record per opportunity; source revisions are not additive.
+-- one current record per opportunity; source revisions are not additive.
 CREATE TABLE fact_opportunity (
     opportunity_id TEXT PRIMARY KEY NOT NULL,
     partner_id TEXT NOT NULL REFERENCES dim_partner(partner_id),

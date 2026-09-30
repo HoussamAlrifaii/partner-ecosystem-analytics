@@ -1,6 +1,6 @@
 # Native Power BI build guide
 
-Status: starter code supplied; these steps have not been executed in Power BI Desktop. Native validation is a required phase 03 gate. Interface labels can vary by Desktop release. The desired result is an actual report file and verified measures, not screenshots of a substitute web dashboard.
+Status: The four-page report has been built in Power BI Desktop, reconciled against the validated Python and SQL outputs, published to Power BI Service, and exported to PDF. Interface labels may vary between Power BI Desktop releases. Public embedding and scheduled refresh are outside the validated scope of this portfolio project.
 
 ## 1 Prepare the inputs
 
@@ -72,7 +72,7 @@ For a filtered SQL check, open warehouse.sqlite with a SQLite-capable editor. Ag
 
 Use Performance Analyzer in Desktop to record an actual interaction, then inspect slow visuals if any. Do not promise a speed improvement without before/after measurements on the same data and machine. Record relationship state, visual checks and actual observed results in docs/VALIDATION.md. This acceptance table is a checklist, not evidence that those checks have already passed.
 
-## 7 Save share and refresh in phase 04
+## 7 Save, publish and refresh
 
 Save the native report after validation. If your version supports Power BI Project format and you choose it, verify the text project opens correctly before committing it. Otherwise distribute a reviewed PBIX as a downloadable release asset. Add screenshots and a short walkthrough showing the business question, filters, definitions and one quality check.
 

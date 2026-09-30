@@ -34,6 +34,4 @@ The test count is 13; some tests exercise multiple related assertions. See tests
 
 ## Not executed yet
 
-Power Query and DAX have been authored but not run in a native engine. No Power BI Desktop report exists yet. SQL-to-DAX equality, report interactions, performance/accessibility checks, Power BI Service publishing, external viewer access, scheduled refresh, Docker execution and GitHub Actions execution remain pending. No remote repository or push has been verified. Windows execution is also unverified.
-
-The final project cannot be marked complete until the applicable phase gates in PROJECT_RUNBOOK.md are met.
+Power Query and DAX were executed in Power BI Desktop on Windows. The completed report contains four pages: Executive Overview, Partner Performance, Pipeline Health and Opportunity Analysis. Headline dashboard results were reconciled with the validated pipeline outputs, including $25.92M net bookings, $3.79M booked gross profit, a 14.62% booked margin rate, a 60.11% closed win rate, $29.48M open pipeline and a 62.07% stale pipeline share. The report was published to Power BI Service and exported as a four-page PDF. Public embedding was not enabled by the organization’s Power BI administrator. Scheduled refresh, public external access and Docker execution were not validated.

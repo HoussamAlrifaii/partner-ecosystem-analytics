@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def dump_csv(path, rows, fieldnames):
-    # 📖 READ ONLY — always write headers, including for an empty quarantine.
+    # always write headers, including for an empty quarantine.
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
@@ -28,7 +28,7 @@ def dump_csv(path, rows, fieldnames):
 
 
 def insert_records(connection, table, rows):
-    # 📖 READ ONLY — table names are internal constants; source values are parameterized.
+    # table names are internal constants; source values are parameterized.
     keys = list(rows[0])
     placeholders = ",".join("?" for _ in keys)
     connection.executemany(
@@ -52,7 +52,7 @@ def run_pipeline(raw_dir, output_dir):
                       "month_start": str(day.replace(day=1)), "month_label": day.strftime("%Y-%m")})
         day += timedelta(days=1)
 
-    # 🎯 INTERVIEW FOCUS — publish immutable versions; a failed build must not replace a good dataset.
+    # publish immutable versions; a failed build must not replace a good dataset.
     output_dir.mkdir(parents=True, exist_ok=True)
     build = Path(tempfile.mkdtemp(prefix=".building-", dir=output_dir))
     try:
@@ -86,7 +86,7 @@ def run_pipeline(raw_dir, output_dir):
             "sql_kpis": checks,
         })
         (build / "quality_report.json").write_text(json.dumps(audit, indent=2) + "\n", encoding="utf-8")
-        # 🎯 INTERVIEW FOCUS — fingerprint the inputs, implementation and dependency version.
+        # fingerprint the inputs, implementation and dependency version.
         import pandas as pd
         source_paths = sorted(raw_dir.glob("*.csv"))
         code_paths = sorted((ROOT / "partner_analytics").glob("*.py")) + sorted((ROOT / "sql").glob("*.sql"))
@@ -105,7 +105,7 @@ def run_pipeline(raw_dir, output_dir):
             shutil.rmtree(build)  # identical code/inputs reuse the immutable version
         else:
             os.replace(build, version_dir)
-        # 📖 READ ONLY — a one-file atomic pointer tells readers which complete version to use.
+        # a one-file atomic pointer tells readers which complete version to use.
         pointer = output_dir / "CURRENT.tmp"
         pointer.write_text(str(version_dir.resolve()) + "\n", encoding="utf-8")
         os.replace(pointer, output_dir / "CURRENT.txt")
@@ -116,7 +116,7 @@ def run_pipeline(raw_dir, output_dir):
 
 
 def main():
-    # 📖 READ ONLY — command-line entry point.
+    # command-line entry point.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw-dir", type=Path, default=Path("data/raw"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"))

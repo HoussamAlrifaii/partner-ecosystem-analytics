@@ -1,4 +1,4 @@
--- 🎯 INTERVIEW FOCUS — bookings are Won value, not all pipeline and not recognized revenue.
+-- bookings are Won value, not all pipeline and not recognized revenue.
 CREATE VIEW v_kpis AS
 SELECT
     COUNT(*) AS accepted_opportunities,
@@ -21,7 +21,7 @@ SELECT
         AS stale_pipeline_share
 FROM fact_opportunity;
 
--- 🎯 INTERVIEW FOCUS — a dense month/vendor grid prevents LAG from skipping a zero-sales month.
+-- a dense month/vendor grid prevents LAG from skipping a zero-sales month.
 CREATE VIEW v_vendor_month AS
 WITH months AS (
     SELECT DISTINCT month_start FROM dim_date
@@ -50,7 +50,7 @@ SELECT *, won_count*1.0/NULLIF(closed_count,0) AS closed_win_rate,
         NULLIF(previous_month_bookings_usd,0) AS bookings_change_rate
 FROM lagged;
 
--- 🎯 INTERVIEW FOCUS — preserve partners without activity and display the conversion denominator.
+-- preserve partners without activity and display the conversion denominator.
 CREATE VIEW v_partner_review AS
 WITH rollup AS (
     SELECT p.partner_id, p.partner_name, p.region, p.tier,

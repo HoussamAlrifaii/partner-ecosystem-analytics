@@ -11,7 +11,7 @@ START = date(2025, 1, 1)
 
 
 def write_csv(path, rows):
-    # 📖 READ ONLY — newline/encoding choices make CSVs portable to Power BI.
+    # newline/encoding choices make CSVs portable to Power BI.
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader()
@@ -19,7 +19,7 @@ def write_csv(path, rows):
 
 
 def generate(raw_dir: Path, seed: int = 42):
-    # 🎯 INTERVIEW FOCUS — synthetic evidence demonstrates a workflow, not market truth.
+    # synthetic evidence demonstrates a workflow, not market truth.
     rng = random.Random(seed)
     raw_dir.mkdir(parents=True, exist_ok=True)
     partners = [
@@ -59,7 +59,7 @@ def generate(raw_dir: Path, seed: int = 42):
                                   stage_changed_date=str(created),
                                   stage="Qualified", closed_date=""))
 
-    # 🎯 INTERVIEW FOCUS — inject known bad input; these are exercises, not bug discoveries.
+    # inject known bad input; these are exercises, not bug discoveries.
     latest[10]["partner_id"] = "P_UNKNOWN"
     latest[11]["amount_usd"] = "-150.00"
     latest[12].update(stage="Won", closed_date="2024-01-01")
@@ -74,7 +74,7 @@ def generate(raw_dir: Path, seed: int = 42):
 
 
 def main():
-    # 📖 READ ONLY — CLI wiring, not business logic.
+    # CLI wiring, not business logic.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw-dir", type=Path, default=Path("data/raw"))
     parser.add_argument("--seed", type=int, default=42)

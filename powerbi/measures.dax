@@ -1,6 +1,6 @@
-// 📖 READ ONLY — create each measure separately with Modeling > New measure; this is not a batch script.
+// create each measure separately with Modeling > New measure; this is not a batch script.
 
-// 🎯 INTERVIEW FOCUS — the active date relationship is closed_date, so closed results follow the date slicer.
+// the active date relationship is closed_date, so closed results follow the date slicer.
 Net Bookings USD =
 COALESCE(CALCULATE(SUM(fact_opportunity[amount_cents]), fact_opportunity[stage] = "Won") / 100.0, 0)
 
@@ -9,7 +9,7 @@ COALESCE(CALCULATE(
     SUMX(fact_opportunity, fact_opportunity[amount_cents] - fact_opportunity[cost_cents]),
     fact_opportunity[stage] = "Won") / 100.0, 0)
 
-// 🎯 INTERVIEW FOCUS — compute a ratio of totals; averaging individual deal margins is wrong.
+// compute a ratio of totals; averaging individual deal margins is wrong.
 Booked Margin Rate = DIVIDE([Booked Gross Profit USD], [Net Bookings USD])
 
 Won Deals =
@@ -18,16 +18,16 @@ COALESCE(CALCULATE(COUNTROWS(fact_opportunity), fact_opportunity[stage] = "Won")
 Closed Deals =
 COALESCE(CALCULATE(COUNTROWS(fact_opportunity), fact_opportunity[stage] IN {"Won", "Lost"}), 0)
 
-// 🎯 INTERVIEW FOCUS — a zero denominator means undefined; DIVIDE returns blank by default.
+// a zero denominator means undefined; DIVIDE returns blank by default.
 Closed Win Rate = DIVIDE([Won Deals], [Closed Deals])
 
-// 🎯 INTERVIEW FOCUS — clear closed-date filters; intersect stage selections so a stage chart does not repeat the grand total.
+// clear closed-date filters; intersect stage selections so a stage chart does not repeat the grand total.
 Current Open Pipeline USD =
 COALESCE(CALCULATE(SUM(fact_opportunity[amount_cents]),
     REMOVEFILTERS(dim_date),
     KEEPFILTERS(fact_opportunity[stage] IN {"Qualified", "Proposal", "Negotiation"})) / 100.0, 0)
 
-// 🎯 INTERVIEW FOCUS — evaluate SUMX after removing the date filter; a FILTER table argument can capture the old context.
+// evaluate SUMX after removing the date filter; a FILTER table argument can capture the old context.
 Current Stale Pipeline USD =
 COALESCE(CALCULATE(
     SUMX(fact_opportunity,
@@ -38,7 +38,7 @@ COALESCE(CALCULATE(
 
 Current Stale Pipeline Share = DIVIDE([Current Stale Pipeline USD], [Current Open Pipeline USD])
 
-// 🎯 INTERVIEW FOCUS — switch the relationship only for a specifically labeled creation-cohort question.
+// switch the relationship only for a specifically labeled creation-cohort question.
 Created Opportunities =
 COALESCE(CALCULATE(COUNTROWS(fact_opportunity),
     USERELATIONSHIP(dim_date[date_key], fact_opportunity[created_date])), 0)

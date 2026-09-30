@@ -1,4 +1,4 @@
-# 📖 READ ONLY — CI checks behavior whenever a commit or pull request reaches GitHub.
+# CI checks behavior whenever a commit or pull request reaches GitHub.
 name: Validate analytics foundation
 on: [push, pull_request]
 permissions:

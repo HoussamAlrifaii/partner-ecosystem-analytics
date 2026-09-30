@@ -16,7 +16,7 @@ from partner_analytics.quality import DataContractError, FIELDS, cents, clean_op
 
 def deal(identity="A", stage="Won", amount="100.00", cost="60.00",
          changed="2026-08-10", updated="2026-08-15"):
-    # 📖 READ ONLY — a tiny readable fixture; expected results below are calculated independently.
+    # a tiny readable fixture; expected results below are calculated independently.
     return {
         "opportunity_id": identity, "partner_id": "P001", "vendor_id": "V01",
         "created_date": "2026-01-01", "updated_date": updated,
@@ -40,7 +40,7 @@ class QualityTests(unittest.TestCase):
         return clean_opportunities(pd.DataFrame(rows, columns=FIELDS), {"P001"}, {"V01"}, AS_OF)
 
     def test_exact_decimal_and_bad_amounts(self):
-        # 🎯 INTERVIEW FOCUS — 0.10 USD is exactly 10 cents, with no hidden rounding.
+        # 0.10 USD is exactly 10 cents, with no hidden rounding.
         self.assertEqual(cents("0.10"), 10)
         for value in ["1.001", "-1", "NaN", "Infinity", "", "abc"]:
             with self.subTest(value=value), self.assertRaises(ValueError):
@@ -87,7 +87,7 @@ class IntegrationTests(unittest.TestCase):
         self.raw, self.output = self.root / "raw", self.root / "outputs"
 
     def test_known_kpis_rates_and_stage_age(self):
-        # 🎯 INTERVIEW FOCUS — expected values are hand calculations, not copies of the SQL.
+        # expected values are hand calculations, not copies of the SQL.
         fixture(self.raw, [
             deal("W1", amount="100", cost="60"), deal("W2", amount="300", cost="270"),
             deal("L", stage="Lost", amount="500"),

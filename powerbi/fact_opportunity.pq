@@ -1,4 +1,4 @@
-// 🎯 INTERVIEW FOCUS — preserve the declared grain and types across SQL and Power BI.
+// preserve the declared grain and types across SQL and Power BI.
 fnReadCsv("fact_opportunity.csv", {
     {"opportunity_id", type text},
     {"partner_id", type text},
